@@ -1,0 +1,50 @@
+name: 'Helm upgrade'
+description: 'Helm upgrade a release'
+inputs:
+  local-chart:
+    description: 'True if the chart is in the current repo'
+    required: false
+    default: "True"
+  chart-repository-url:
+    description: 'The URL of the chart repository. Required if local-chart is False'
+    required: false
+  chart-repository-name:
+    description: 'The name of the chart repository. Required if local-chart is False'
+    required: false
+  chart:
+    description: 'The name of the chart with repository'
+    required: true
+  release-name:
+    description: 'The name of the release to deploy'
+    required: true
+  release-namespace:
+    description: 'The name of the namespace to deploy the release in'
+    required: true
+  create-namespace:
+    description: 'True to create the namespace if it does not exist (default: True)'
+    required: false
+    default: "True"
+  values-file-path:
+    description: 'Path to an existing values.yaml file'
+    required: false
+  wait:
+    description: 'Wait for resources to be ready (default: False)'
+    required: false
+    default: 'False'
+  debug:
+    description: 'Display debug output (default: False)'
+    required: false
+    default: 'False'
+  dry-run:
+    description: 'Do not create resources (default: False)'
+    required: false
+    default: 'False'
+  release-set-values:
+    description: 'Values to set on the fly'
+    required: false
+
+
+runs:
+  using: "node12"
+  main: "dist_main/index.js"
+  post: "dist_cleanup/index.js"
